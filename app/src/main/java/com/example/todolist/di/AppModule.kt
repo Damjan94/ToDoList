@@ -2,6 +2,7 @@ package com.example.todolist.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.todolist.common.MyCoroutineDispatchers
 import com.example.todolist.data.repository.ToDoItemRepositoryImpl
 import com.example.todolist.data.source.local.LocalDatabase
 import com.example.todolist.data.source.local.dao.ToDoListDao
@@ -30,9 +31,16 @@ class AppModule {
     }
     @Provides
     @Singleton
-    fun provideCoinDao(localDatabase: LocalDatabase): ToDoListDao {
+    fun provideToDoDao(localDatabase: LocalDatabase): ToDoListDao {
         return localDatabase.getToDoListDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideMyCoroutineDispatchers(): MyCoroutineDispatchers {
+        return MyCoroutineDispatchers()
+    }
+
     @Module
     @InstallIn(SingletonComponent::class)
     interface AppModuleInt {

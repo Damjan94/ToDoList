@@ -48,6 +48,9 @@ class ToDoListViewModel @Inject constructor(
     }
 
     fun addToDoItem(itemText: String) {
+        if(itemText.isBlank()) {
+            return
+        }
         viewModelScope.launch {
             putToDoItemToStorageUseCase(ToDoItem(0, text = itemText, isDone = false))
             getAllToDoItems()
